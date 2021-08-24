@@ -1,4 +1,5 @@
-import express from 'express'
+import express from "express";
+import usersRouter from "./resources/user/router";
 
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
@@ -11,8 +12,10 @@ app.use(express.json());
 app.use(cookieParser());
 
 // App routes
+app.use("/users", usersRouter);
+
 app.all("*", (req, res) => {
-    res.status(404).json("No routes match")
-})
+  res.status(404).json("No routes match");
+});
 
 module.exports = app;
