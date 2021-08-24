@@ -14,6 +14,7 @@ app.use(cookieParser());
 // App routes
 app.use("/users", usersRouter);
 
+
 app.all("*", (req, res) => {
   res.status(404).json("No routes match");
 });
