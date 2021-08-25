@@ -10,10 +10,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginUser = void 0;
+const service_1 = require("./service");
 const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // Get user credentials
     const userCreds = req.body;
-    // Check if credentials are valid
-    // Handle result
+    try {
+        // Check if credentials are valid
+        const loggedUser = yield service_1.findUserWithValidation(userCreds);
+        // Handle result
+        res.json({ user: { id: loggedUser.id, username: loggedUser.username } });
+    }
+    catch (error) {
+        res.status(401).json({ error: error.message });
+    }
 });
 exports.loginUser = loginUser;
