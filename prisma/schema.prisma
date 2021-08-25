@@ -13,7 +13,8 @@ generator client {
 
 model User {
   id       Int     @id @default(autoincrement())
-  username String
+  // Username has to be unique for auth purposes
+  username String  @unique
   password String
   bio      String?
 }

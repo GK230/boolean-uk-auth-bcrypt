@@ -13,15 +13,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createUser = exports.getAllUsers = void 0;
-const database_1 = __importDefault(require("../../utils/database"));
+// I'm importing from service my patched version of prisma model
+const service_1 = __importDefault(require("./service"));
 const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const allUsers = yield database_1.default.user.findMany();
+    const allUsers = yield service_1.default.findMany();
     res.json({ data: allUsers });
 });
 exports.getAllUsers = getAllUsers;
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const newUser = req.body;
-    const savedUser = yield database_1.default.user.create({ data: newUser });
+    // This is my modified create version, with the password hashing
+    const savedUser = yield service_1.default.create(newUser);
     res.json({ data: savedUser });
 });
 exports.createUser = createUser;
