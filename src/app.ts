@@ -1,5 +1,5 @@
 import express from "express";
-import usersRouter from "./resources/user/router";
+import usersRouter from "./resources/users/router";
 import authRouter from "./resources/auth/router";
 
 const cookieParser = require("cookie-parser");
