@@ -20,4 +20,5 @@ const create = async (newUser: User) => {
 export default {
   ...dbClient.user,
   create,
+  newUser,
 };
