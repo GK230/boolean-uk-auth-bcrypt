@@ -2,7 +2,7 @@ import dbClient from "../../utils/database";
 import { User } from "@prisma/client";
 import { hash } from "bcrypt";
 
-const create = async (newUser: User) => {
+const createWithHash = async (newUser: User) => {
   // Grab user plaintext password
   const plaintext = newUser.password;
 
@@ -19,6 +19,5 @@ const create = async (newUser: User) => {
 
 export default {
   ...dbClient.user,
-  create,
-  newUser,
+  createWithHash,
 };

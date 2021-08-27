@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { User } from "@prisma/client";
 import { findUserWithValidation } from "./service";
+import { createToken } from "../../utils/authGenerator";
 
 export const loginUser = async (req: Request, res: Response) => {
   // Get user credentials
@@ -11,8 +12,12 @@ export const loginUser = async (req: Request, res: Response) => {
 
     const loggedUser = await findUserWithValidation(userCreds);
     // Handle result
-
-    res.json({ user: { id: loggedUser.id, username: loggedUser.username } });
+    const token = createToken({
+      id: loggedUser.id,
+      username: loggedUser.username,
+    });
+    res.cookie("token", token, { httpOnly: true });
+    res.json({ data: { username: loggedUser.username } });
   } catch (error) {
     res.status(401).json({ error: error.message });
   }
